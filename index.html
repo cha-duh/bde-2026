@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🥏 Big Disc Energy — Spring 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c12;
+    --surface: #13161f;
+    --surface2: #1c2030;
+    --border: rgba(255,255,255,0.06);
+    --accent: #6b8fff;
+    --accent2: #7ee8a2;
+    --accent-glow: rgba(107,143,255,0.12);
+    --text: #e8eaf6;
+    --text-dim: #a0a8c0;
+    --muted: #626880;
+    --gold: #fbbf24;
+    --silver: #94a3b8;
+    --bronze: #c97c3a;
+    --green: #34d399;
+    --red: #f87171;
+    --yellow: #fbbf24;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 28px 16px 48px;
+  }
+
+  .container { max-width: 880px; margin: 0 auto; }
+
+  /* ── Header ── */
+  header { text-align: center; margin-bottom: 24px; }
+
+  .league-wordmark {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .disc-icon {
+    display: inline-block;
+    margin-right: 8px;
+    animation: spin 12s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .season-subtitle {
+    font-size: clamp(0.72rem, 2vw, 0.92rem);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+  }
+
+  header .meta { color: var(--muted); font-size: 0.77rem; margin-top: 4px; }
+
+  /* ── Stats Strip ── */
+  .stats-strip {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .stat-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 8px 20px;
+    min-width: 108px;
+  }
+
+  .pill-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  .pill-value {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-top: 2px;
+  }
+
+  .stat-pill.highlight .pill-value { color: var(--accent2); }
+
+  /* ── Section titles ── */
+  .section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .wk-label { color: var(--accent2); font-weight: 600; text-transform: none; letter-spacing: 0; font-size: 0.85rem; }
+
+  section { margin-bottom: 28px; }
+
+  /* ── Cards & Tables ── */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    font-size: 0.67rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--muted);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--accent-glow); }
+
+  tbody td { padding: 13px 14px; font-size: 0.88rem; vertical-align: middle; }
+
+  /* ── Avatars ── */
+  .avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 0.62rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-right: 9px;
+    color: #fff;
+  }
+
+  .name-cell { display: flex; align-items: center; }
+
+  /* ── This Week ── */
+  .this-week td.name { font-weight: 600; min-width: 100px; }
+  .this-week td.rating { font-variant-numeric: tabular-nums; }
+  .this-week td.bkpts { color: var(--muted); text-align: center; }
+  .this-week td.wkpts { font-size: 1.1rem; font-weight: 800; color: var(--accent2); text-align: center; }
+  .this-week td.vsb { font-variant-numeric: tabular-nums; }
+  .this-week td.sidegames { font-size: 0.8rem; }
+  .this-week thead th:nth-child(4),
+  .this-week thead th:nth-child(5) { text-align: center; }
+  .adj { color: var(--muted); font-size: 0.8rem; }
+
+  tr.week-winner {
+    background: rgba(107,143,255,0.10) !important;
+    border-left: 3px solid var(--accent);
+  }
+  tr.week-winner td.wkpts { color: var(--accent); font-size: 1.2rem; }
+
+  /* ── Standings ── */
+  td.rank { font-size: 1.2rem; width: 52px; text-align: center; }
+  td.name { font-weight: 600; }
+  td.pts { font-size: 1.05rem; font-weight: 800; color: var(--accent2); }
+  td.ppg { color: var(--muted); font-size: 0.83rem; }
+  td.spark { width: 96px; }
+  td.spark svg { display: block; overflow: visible; }
+
+  tr.rank-1 { background: rgba(251,191,36,0.06); border-left: 3px solid var(--gold); }
+  tr.rank-2 { background: rgba(148,163,184,0.05); border-left: 3px solid var(--silver); }
+  tr.rank-3 { background: rgba(201,124,58,0.05);  border-left: 3px solid var(--bronze); }
+  tr.rank-1 td.pts { color: var(--gold); }
+  tr.rank-2 td.pts { color: var(--silver); }
+  tr.rank-3 td.pts { color: var(--bronze); }
+
+  .expand-hint {
+    color: var(--muted);
+    font-size: 0.72rem;
+    margin-left: 5px;
+    transition: transform 0.22s;
+    display: inline-block;
+  }
+
+  tr.expandable { cursor: pointer; user-select: none; }
+  tr.expandable.open .expand-hint { transform: rotate(180deg); }
+
+  /* ── Accordion ── */
+  tr.history-row > td { padding: 0 !important; border-bottom: none !important; }
+
+  .history-inner-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  tr.history-row.open .history-inner-wrap { max-height: 700px; }
+
+  .history-inner {
+    padding: 12px 16px 16px 52px;
+    background: rgba(10,12,18,0.7);
+    border-top: 1px solid rgba(107,143,255,0.15);
+  }
+
+  .history-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+
+  .history-table thead th {
+    background: transparent;
+    padding: 6px 10px;
+    color: var(--muted);
+    font-size: 0.65rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .history-table tbody td {
+    padding: 7px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text);
+  }
+
+  .history-table tbody tr:last-child td { border-bottom: none; }
+  .history-table td.h-total { font-weight: 700; color: var(--accent2); }
+  .history-table td.h-week { color: var(--muted); font-size: 0.78rem; }
+
+  /* ── Badges ── */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.76rem; font-weight: 600; }
+  .badge.green { background: rgba(52,211,153,0.15); color: var(--green); }
+  .badge.red   { background: rgba(248,113,113,0.15); color: var(--red); }
+  .badge.gray  { background: rgba(98,104,128,0.18);  color: var(--muted); }
+
+  .sidegame {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(251,191,36,0.15);
+    color: var(--yellow);
+    margin-right: 3px;
+  }
+
+  .pos { color: var(--green); font-weight: 600; }
+  .neg { color: var(--red); font-weight: 600; }
+  .neu { color: var(--muted); }
+
+  .trend { font-size: 0.72rem; margin-left: 4px; }
+  .trend.up   { color: var(--green); }
+  .trend.down { color: var(--red); }
+  .trend.flat { color: var(--muted); }
+
+  /* ── Scoring Key ── */
+  .scoring-key {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 28px;
+  }
+
+  .scoring-key h3 {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .key-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 5px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  .key-item { display: flex; justify-content: space-between; gap: 8px; }
+  .key-item .kpts { color: var(--accent2); font-weight: 700; white-space: nowrap; }
+
+  .key-note { color: var(--muted); font-size: 0.74rem; margin-top: 10px; line-height: 1.55; }
+
+  /* ── Footer ── */
+  footer { text-align: center; color: var(--muted); font-size: 0.73rem; }
+
+  .season-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 8px;
+    font-size: 0.71rem;
+  }
+
+  .progress-track {
+    width: 140px;
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 99px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 99px;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .history-inner { padding-left: 12px; }
+    tbody td { padding: 10px 10px; }
+    td.spark { width: 64px; }
+    .stat-pill { min-width: 88px; padding: 7px 14px; }
+    .league-wordmark { letter-spacing: -1px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="league-wordmark"><span class="disc-icon">🥏</span>Big Disc Energy</div>
+    <div class="season-subtitle">Spring 2026</div>
+    <div class="meta">Updated 2026-05-08 · Max 11 pts/week · Click a player to expand round history</div>
+  </header>
+
+  <div class="stats-strip">
+    <div class="stat-pill highlight">
+      <span class="pill-label">Current Leader</span>
+      <span class="pill-value">Joe</span>
+    </div>
+    <div class="stat-pill">
+      <span class="pill-label">Total Rounds</span>
+      <span class="pill-value">21</span>
+    </div>
+    <div class="stat-pill">
+      <span class="pill-label">Best Week</span>
+      <span class="pill-value">6 pts</span>
+    </div>
+    <div class="stat-pill">
+      <span class="pill-label">Season Progress</span>
+      <span class="pill-value">Wk 1 of 20</span>
+    </div>
+  </div>
+
+  <section class="this-week">
+    <h2 class="section-title">This Week <span class="wk-label">BDE: his hip don't lie</span></h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Rating</th>
+            <th>vs Baseline</th>
+            <th>Perf</th>
+            <th>Att</th>
+            <th>Side Games</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="week-winner">
+            <td class="name name-cell"><span class="avatar" style="background:#3b82f6">Jo</span>Joe</td>
+            <td class="rating">216</td>
+            <td class="vsb"><span class="neu">0.0</span></td>
+            <td class="bkpts">3</td>
+            <td class="bkpts">1</td>
+            <td class="sidegames"><span class="sidegame">CTP</span> <span class="sidegame">LP</span></td>
+            <td class="wkpts">6</td>
+          </tr>
+          <tr>
+            <td class="name name-cell"><span class="avatar" style="background:#8b5cf6">Js</span>Joshua</td>
+            <td class="rating">229</td>
+            <td class="vsb"><span class="neg">-0.7</span></td>
+            <td class="bkpts">2</td>
+            <td class="bkpts">1</td>
+            <td class="sidegames"><span class="sidegame">CTP</span></td>
+            <td class="wkpts">4</td>
+          </tr>
+          <tr>
+            <td class="name name-cell"><span class="avatar" style="background:#ec4899">Ka</span>Kat</td>
+            <td class="rating">198</td>
+            <td class="vsb"><span class="pos">+3.5</span></td>
+            <td class="bkpts">3</td>
+            <td class="bkpts">1</td>
+            <td class="sidegames"></td>
+            <td class="wkpts">4</td>
+          </tr>
+          <tr>
+            <td class="name name-cell"><span class="avatar" style="background:#f97316">Ky</span>Kyle</td>
+            <td class="rating">192</td>
+            <td class="vsb"><span class="neu">0.0</span></td>
+            <td class="bkpts">3</td>
+            <td class="bkpts">1</td>
+            <td class="sidegames"></td>
+            <td class="wkpts">4</td>
+          </tr>
+          <tr>
+            <td class="name name-cell"><span class="avatar" style="background:#14b8a6">No</span>Noah</td>
+            <td class="rating">169</td>
+            <td class="vsb"><span class="neg">-15.0</span></td>
+            <td class="bkpts">0</td>
+            <td class="bkpts">1</td>
+            <td class="sidegames"><span class="sidegame">LP</span></td>
+            <td class="wkpts">2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Season Standings</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Player</th>
+            <th>Season Pts</th>
+            <th>Rounds</th>
+            <th>Pts/Rd</th>
+            <th>Baseline</th>
+            <th>Recent ▸</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="rank-1 expandable" data-history="[{&quot;label&quot;: &quot;BDE: his hip don&#x27;t lie&quot;, &quot;date&quot;: &quot;2026-05-08&quot;, &quot;raw_rating&quot;: 216, &quot;adjusted_rating&quot;: 216, &quot;player_baseline&quot;: 216.0, &quot;rating_vs_baseline&quot;: 0.0, &quot;performance_points&quot;: 3, &quot;attendance_points&quot;: 1, &quot;ctp_points&quot;: 1, &quot;long_putt_points&quot;: 1, &quot;total_points&quot;: 6}]" onclick="toggleHistory(this)">
+            <td class="rank">🥇</td>
+            <td class="name name-cell"><span class="avatar" style="background:#3b82f6">Jo</span>Joe<span class="expand-hint">▾</span></td>
+            <td class="pts">6</td>
+            <td class="rounds">1</td>
+            <td class="ppg">6.0</td>
+            <td class="baseline"><span class="badge green">216.0</span></td>
+            <td class="spark"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" style="display:block"><circle cx="40" cy="12" r="3" fill="#6b8fff"/></svg></td>
+          </tr>
+          <tr class="history-row" id="hist-0">
+            <td colspan="7" style="padding:0">
+              <div class="history-inner-wrap">
+                <div class="history-inner">
+                  <table class="history-table">
+                    <thead><tr><th>Week</th><th>Date</th><th>Rating</th><th>vs Baseline</th><th>Perf</th><th>Att</th><th>CTP</th><th>LP</th><th>Total</th></tr></thead>
+                    <tbody id="hist-body-0"></tbody>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr class="rank-2 expandable" data-history="[{&quot;label&quot;: &quot;BDE: his hip don&#x27;t lie&quot;, &quot;date&quot;: &quot;2026-05-08&quot;, &quot;raw_rating&quot;: 229, &quot;adjusted_rating&quot;: 229, &quot;player_baseline&quot;: 229.67, &quot;rating_vs_baseline&quot;: -0.67, &quot;performance_points&quot;: 2, &quot;attendance_points&quot;: 1, &quot;ctp_points&quot;: 1, &quot;long_putt_points&quot;: 0, &quot;total_points&quot;: 4}]" onclick="toggleHistory(this)">
+            <td class="rank">🥈</td>
+            <td class="name name-cell"><span class="avatar" style="background:#8b5cf6">Js</span>Joshua<span class="expand-hint">▾</span></td>
+            <td class="pts">4</td>
+            <td class="rounds">7</td>
+            <td class="ppg">0.6</td>
+            <td class="baseline"><span class="badge green">229.5</span></td>
+            <td class="spark"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" style="display:block"><circle cx="40" cy="12" r="3" fill="#6b8fff"/></svg></td>
+          </tr>
+          <tr class="history-row" id="hist-1">
+            <td colspan="7" style="padding:0">
+              <div class="history-inner-wrap">
+                <div class="history-inner">
+                  <table class="history-table">
+                    <thead><tr><th>Week</th><th>Date</th><th>Rating</th><th>vs Baseline</th><th>Perf</th><th>Att</th><th>CTP</th><th>LP</th><th>Total</th></tr></thead>
+                    <tbody id="hist-body-1"></tbody>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr class="rank-3 expandable" data-history="[{&quot;label&quot;: &quot;BDE: his hip don&#x27;t lie&quot;, &quot;date&quot;: &quot;2026-05-08&quot;, &quot;raw_rating&quot;: 198, &quot;adjusted_rating&quot;: 198, &quot;player_baseline&quot;: 194.5, &quot;rating_vs_baseline&quot;: 3.5, &quot;performance_points&quot;: 3, &quot;attendance_points&quot;: 1, &quot;ctp_points&quot;: 0, &quot;long_putt_points&quot;: 0, &quot;total_points&quot;: 4}]" onclick="toggleHistory(this)">
+            <td class="rank">🥉</td>
+            <td class="name name-cell"><span class="avatar" style="background:#ec4899">Ka</span>Kat<span class="expand-hint">▾</span></td>
+            <td class="pts">4</td>
+            <td class="rounds">5</td>
+            <td class="ppg">0.8</td>
+            <td class="baseline"><span class="badge gray">195.2</span></td>
+            <td class="spark"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" style="display:block"><circle cx="40" cy="12" r="3" fill="#6b8fff"/></svg></td>
+          </tr>
+          <tr class="history-row" id="hist-2">
+            <td colspan="7" style="padding:0">
+              <div class="history-inner-wrap">
+                <div class="history-inner">
+                  <table class="history-table">
+                    <thead><tr><th>Week</th><th>Date</th><th>Rating</th><th>vs Baseline</th><th>Perf</th><th>Att</th><th>CTP</th><th>LP</th><th>Total</th></tr></thead>
+                    <tbody id="hist-body-2"></tbody>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr class="expandable" data-history="[{&quot;label&quot;: &quot;BDE: his hip don&#x27;t lie&quot;, &quot;date&quot;: &quot;2026-05-08&quot;, &quot;raw_rating&quot;: 192, &quot;adjusted_rating&quot;: 192, &quot;player_baseline&quot;: 192.0, &quot;rating_vs_baseline&quot;: 0.0, &quot;performance_points&quot;: 3, &quot;attendance_points&quot;: 1, &quot;ctp_points&quot;: 0, &quot;long_putt_points&quot;: 0, &quot;total_points&quot;: 4}]" onclick="toggleHistory(this)">
+            <td class="rank">#4</td>
+            <td class="name name-cell"><span class="avatar" style="background:#f97316">Ky</span>Kyle<span class="expand-hint">▾</span></td>
+            <td class="pts">4</td>
+            <td class="rounds">1</td>
+            <td class="ppg">4.0</td>
+            <td class="baseline"><span class="badge gray">192.0</span></td>
+            <td class="spark"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" style="display:block"><circle cx="40" cy="12" r="3" fill="#6b8fff"/></svg></td>
+          </tr>
+          <tr class="history-row" id="hist-3">
+            <td colspan="7" style="padding:0">
+              <div class="history-inner-wrap">
+                <div class="history-inner">
+                  <table class="history-table">
+                    <thead><tr><th>Week</th><th>Date</th><th>Rating</th><th>vs Baseline</th><th>Perf</th><th>Att</th><th>CTP</th><th>LP</th><th>Total</th></tr></thead>
+                    <tbody id="hist-body-3"></tbody>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr class="expandable" data-history="[{&quot;label&quot;: &quot;BDE: his hip don&#x27;t lie&quot;, &quot;date&quot;: &quot;2026-05-08&quot;, &quot;raw_rating&quot;: 169, &quot;adjusted_rating&quot;: 169, &quot;player_baseline&quot;: 184.0, &quot;rating_vs_baseline&quot;: -15.0, &quot;performance_points&quot;: 0, &quot;attendance_points&quot;: 1, &quot;ctp_points&quot;: 0, &quot;long_putt_points&quot;: 1, &quot;total_points&quot;: 2}]" onclick="toggleHistory(this)">
+            <td class="rank">#5</td>
+            <td class="name name-cell"><span class="avatar" style="background:#14b8a6">No</span>Noah<span class="expand-hint">▾</span></td>
+            <td class="pts">2</td>
+            <td class="rounds">7</td>
+            <td class="ppg">0.3</td>
+            <td class="baseline"><span class="badge gray">179.5</span></td>
+            <td class="spark"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" style="display:block"><circle cx="40" cy="12" r="3" fill="#6b8fff"/></svg></td>
+          </tr>
+          <tr class="history-row" id="hist-4">
+            <td colspan="7" style="padding:0">
+              <div class="history-inner-wrap">
+                <div class="history-inner">
+                  <table class="history-table">
+                    <thead><tr><th>Week</th><th>Date</th><th>Rating</th><th>vs Baseline</th><th>Perf</th><th>Att</th><th>CTP</th><th>LP</th><th>Total</th></tr></thead>
+                    <tbody id="hist-body-4"></tbody>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="scoring-key">
+    <h3>Scoring Key</h3>
+    <div class="key-grid">
+      <div class="key-item"><span>Attendance</span><span class="kpts">1 pt</span></div>
+      <div class="key-item"><span>Rating ≥ +15 vs baseline</span><span class="kpts">6 pts</span></div>
+      <div class="key-item"><span>Rating +5 to +14</span><span class="kpts">4 pts</span></div>
+      <div class="key-item"><span>Rating 0 to +4</span><span class="kpts">3 pts</span></div>
+      <div class="key-item"><span>Rating −0.1 to −4</span><span class="kpts">2 pts</span></div>
+      <div class="key-item"><span>Rating −5 to −14</span><span class="kpts">1 pt</span></div>
+      <div class="key-item"><span>Rating ≤ −15</span><span class="kpts">0 pts</span></div>
+      <div class="key-item"><span>CTP win (up to 2)</span><span class="kpts">+1 pt each</span></div>
+      <div class="key-item"><span>Long Putt win (up to 2)</span><span class="kpts">+1 pt each</span></div>
+    </div>
+    <p class="key-note">Baseline = rolling avg of your app round ratings (0–300 scale).
+    Performance pts compare your rating to your own baseline — a 190-rated and 250-rated
+    player have equal shots at 6 pts. Max 11 pts/week (1 att + 6 perf + 2 CTP + 2 LP).</p>
+  </div>
+
+  <footer>
+    <div class="season-progress">
+      <span>Week 1 of 20</span>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:5%"></div>
+      </div>
+      <span>5%</span>
+    </div>
+    Big Disc Energy &middot; Spring 2026 &middot; Generated by Claude
+  </footer>
+
+</div>
+<script>
+  function toggleHistory(row) {
+    const histRow = row.nextElementSibling;
+    if (!histRow || !histRow.classList.contains('history-row')) return;
+
+    const isOpen = histRow.classList.contains('open');
+
+    if (isOpen) {
+      histRow.classList.remove('open');
+      row.classList.remove('open');
+    } else {
+      const tbody = histRow.querySelector('tbody');
+      if (tbody && tbody.children.length === 0) {
+        const rounds = JSON.parse(row.getAttribute('data-history'));
+        rounds.forEach(r => {
+          const diff = r.rating_vs_baseline;
+          const diffStr = diff > 0
+            ? `<span class="pos">+${diff.toFixed(1)}</span>`
+            : diff < 0
+              ? `<span class="neg">${diff.toFixed(1)}</span>`
+              : `<span class="neu">${diff.toFixed(1)}</span>`;
+          const adjNote = (r.adjusted_rating && r.adjusted_rating !== r.raw_rating)
+            ? ` <span class="adj">(adj ${r.adjusted_rating.toFixed(0)})</span>` : '';
+          const ctpCell = r.ctp_points ? '<span class="sidegame">CTP</span>'.repeat(r.ctp_points) : '—';
+          const lpCell  = r.long_putt_points ? '<span class="sidegame">LP</span>'.repeat(r.long_putt_points) : '—';
+          tbody.innerHTML += `<tr>
+            <td class="h-week">${r.label || ''}</td>
+            <td>${r.date || ''}</td>
+            <td>${r.raw_rating}${adjNote}</td>
+            <td>${diffStr}</td>
+            <td>${r.performance_points}</td>
+            <td>${r.attendance_points}</td>
+            <td>${ctpCell}</td>
+            <td>${lpCell}</td>
+            <td class="h-total">${r.total_points}</td>
+          </tr>`;
+        });
+      }
+      histRow.classList.add('open');
+      row.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>
