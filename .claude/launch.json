@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "bde-leaderboard",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "3741", "."],
+      "port": 3741
+    }
+  ]
+}
