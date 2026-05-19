@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>&#x1F94F; Big Disc Energy &#x2014; Spring 2026</title>
+<title>🥏 Big Disc Energy &#x2014; Spring 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -92,6 +92,44 @@
   .season-progress { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 8px; font-size: 0.71rem; }
   .progress-track { width: 140px; height: 4px; background: var(--surface2); border-radius: 99px; overflow: hidden; flex-shrink: 0; }
   .progress-fill { height: 100%; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 99px; }
+  .key-columns {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: stretch;
+  }
+  .key-carnival {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 0 0 auto;
+    padding-right: 20px;
+  }
+  .key-carnival .key-item {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    gap: 12px;
+  }
+  .key-carnival .kpts {
+    color: var(--accent2);
+  }
+  .key-divider {
+    width: 1px;
+    background: var(--border);
+    margin: 0 20px;
+    flex-shrink: 0;
+  }
+  .key-ratings {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    font-size: 0.8rem;
+  }
+  .key-ratings .key-item {
+    color: var(--text-dim);
+  }
   @media (max-width:600px) { .history-inner { padding-left: 12px; } tbody td { padding: 10px; } td.spark { width: 64px; } .stat-pill { min-width: 88px; padding: 7px 14px; } .league-wordmark { letter-spacing: -1px; } }
 </style>
 </head>
@@ -99,7 +137,7 @@
 <div class="container">
 
   <header>
-    <div class="league-wordmark"><span class="disc-icon">&#x1F94F;</span>Big Disc Energy</div>
+    <div class="league-wordmark"><span class="disc-icon">🥏</span>Big Disc Energy</div>
     <div class="season-subtitle">Spring 2026</div>
     <div class="meta">Updated 2026-05-19 &middot; Max 11 pts/week &middot; Click a player to expand round history</div>
   </header>
@@ -318,16 +356,21 @@
 
   <div class="scoring-key">
     <h3>Scoring Key</h3>
-    <div class="key-grid">
-      <div class="key-item"><span>Attendance</span><span class="kpts">1 pt</span></div>
-      <div class="key-item"><span>Rating &ge; +15 vs baseline</span><span class="kpts">6 pts</span></div>
-      <div class="key-item"><span>Rating +5 to +14</span><span class="kpts">4 pts</span></div>
-      <div class="key-item"><span>Rating 0 to +4</span><span class="kpts">3 pts</span></div>
-      <div class="key-item"><span>Rating &minus;0.1 to &minus;4</span><span class="kpts">2 pts</span></div>
-      <div class="key-item"><span>Rating &minus;5 to &minus;14</span><span class="kpts">1 pt</span></div>
-      <div class="key-item"><span>Rating &le; &minus;15</span><span class="kpts">0 pts</span></div>
-      <div class="key-item"><span>CTP win (up to 2)</span><span class="kpts">+1 pt each</span></div>
-      <div class="key-item"><span>Long Putt win (up to 2)</span><span class="kpts">+1 pt each</span></div>
+    <div class="key-columns">
+      <div class="key-carnival">
+        <div class="key-item"><span>🙋 Attendance</span><span class="kpts">1 pt</span></div>
+        <div class="key-item"><span>🎯 CTP win</span><span class="kpts">+1 pt each &nbsp;(up to 2)</span></div>
+        <div class="key-item"><span>🏹 Long Putt win</span><span class="kpts">+1 pt each &nbsp;(up to 2)</span></div>
+      </div>
+      <div class="key-divider"></div>
+      <div class="key-ratings">
+        <div class="key-item"><span>Rating &ge; +15 vs baseline</span><span class="kpts">6 pts</span></div>
+        <div class="key-item"><span>Rating +5 to +14</span><span class="kpts">4 pts</span></div>
+        <div class="key-item"><span>Rating 0 to +4</span><span class="kpts">3 pts</span></div>
+        <div class="key-item"><span>Rating &minus;0.1 to &minus;4</span><span class="kpts">2 pts</span></div>
+        <div class="key-item"><span>Rating &minus;5 to &minus;14</span><span class="kpts">1 pt</span></div>
+        <div class="key-item"><span>Rating &le; &minus;15</span><span class="kpts">0 pts</span></div>
+      </div>
     </div>
     <p class="key-note">Baseline = rolling avg of your app round ratings (0&ndash;300 scale). Performance pts compare your rating to your own baseline &mdash; a 178-rated and 220-rated player have equal shots at 6 pts. Max 11 pts/week (1 att + 6 perf + 2 CTP + 2 LP). * Rounds include pre-season baseline seeds.</p>
   </div>
