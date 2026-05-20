@@ -89,6 +89,7 @@
   .key-item .kpts { color: var(--accent2); font-weight: 700; white-space: nowrap; }
   .key-note { color: var(--muted); font-size: 0.74rem; margin-top: 10px; line-height: 1.55; }
   footer { text-align: center; color: var(--muted); font-size: 0.73rem; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .season-progress { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 8px; font-size: 0.71rem; }
   .progress-track { width: 140px; height: 4px; background: var(--surface2); border-radius: 99px; overflow: hidden; flex-shrink: 0; }
   .progress-fill { height: 100%; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 99px; }
@@ -130,7 +131,19 @@
   .key-ratings .key-item {
     color: var(--text-dim);
   }
-  @media (max-width:600px) { .history-inner { padding-left: 12px; } tbody td { padding: 10px; } td.spark { width: 64px; } .stat-pill { min-width: 88px; padding: 7px 14px; } .league-wordmark { letter-spacing: -1px; } }
+  @media (max-width:600px) {
+    .history-inner { padding-left: 12px; }
+    tbody td { padding: 10px; }
+    td.spark { width: 64px; }
+    .stat-pill { min-width: 88px; padding: 7px 14px; }
+    .league-wordmark { letter-spacing: -1px; }
+    .history-inner-wrap { overflow-x: auto; }
+    .key-columns { flex-direction: column; }
+    .key-divider { width: 100%; height: 1px; margin: 12px 0; }
+    .key-carnival { padding-right: 0; }
+    .section-title { flex-wrap: wrap; align-items: baseline; }
+    .wk-label { font-size: 0.78rem; }
+  }
 </style>
 </head>
 <body>
@@ -164,6 +177,7 @@
   <section class="this-week">
     <h2 class="section-title">This Week <span class="wk-label">FoMo at RoMo for NoNo &mdash; Robert Morris &middot; May 13 &middot; +20 cond. adj.</span></h2>
     <div class="card">
+      <div class="table-scroll">
       <table>
         <thead><tr><th>Player</th><th>Rating</th><th>vs Baseline</th><th>Perf</th><th>Att</th><th>Side Games</th><th>Total</th></tr></thead>
         <tbody>
@@ -214,12 +228,14 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 
   <section>
     <h2 class="section-title">Season Standings</h2>
     <div class="card">
+      <div class="table-scroll">
       <table>
         <thead><tr><th></th><th>Player</th><th>Season Pts</th><th>Rounds</th><th>Pts/Rd</th><th>Baseline</th><th>Recent &#x25B8;</th></tr></thead>
         <tbody>
@@ -351,6 +367,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 
